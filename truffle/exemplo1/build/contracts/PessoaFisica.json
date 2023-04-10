@@ -1,0 +1,125 @@
+{
+  "contractName": "PessoaFisica",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/PessoaFisica.sol\":\"PessoaFisica\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/PessoaFisica.sol\":{\"keccak256\":\"0x51e767dbbb9501ac53183cbaed04a9c1e5368acf5034545208a127d6ea3553d7\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c41dd7ea5f78ef3ffda6146d40674d840846dd92cef773b24cf0dc00143bc7d0\",\"dweb:/ipfs/QmeLcSZ7tu5nRvxBFfEqDE2BHhvNA4GXpvpp3WTP78Sqg5\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220a4cac81d45452ef60ab591de624f6e9f82060563ff67708f9dbff9e608c8503b64736f6c63430008130033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220a4cac81d45452ef60ab591de624f6e9f82060563ff67708f9dbff9e608c8503b64736f6c63430008130033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "66:54:0:-:0;;;92:26;;;;;;;;;;66:54;;;;;;",
+  "deployedSourceMap": "66:54:0:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.22 <0.9.0;\n\ncontract PessoaFisica {\n  constructor() public {\n  }\n}\n",
+  "sourcePath": "/opt/www/oviniciusfeitosa/study.web3/truffle/exemplo1/contracts/PessoaFisica.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/PessoaFisica.sol",
+    "exportedSymbols": {
+      "PessoaFisica": [
+        6
+      ]
+    },
+    "id": 7,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:32:0"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "PessoaFisica",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 6,
+        "linearizedBaseContracts": [
+          6
+        ],
+        "name": "PessoaFisica",
+        "nameLocation": "75:12:0",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 4,
+              "nodeType": "Block",
+              "src": "113:5:0",
+              "statements": []
+            },
+            "id": 5,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "103:2:0"
+            },
+            "returnParameters": {
+              "id": 3,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "113:0:0"
+            },
+            "scope": 6,
+            "src": "92:26:0",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 7,
+        "src": "66:54:0",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:89:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.19+commit.7dd6d404.Emscripten.clang"
+  },
+  "networks": {
+    "1337": {
+      "events": {},
+      "links": {},
+      "address": "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10",
+      "transactionHash": "0x545cac022a8fa08ef1f139c86ce22ae614b74b50234981281aed45e9a97e1ba4"
+    }
+  },
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-04-10T02:01:21.811Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

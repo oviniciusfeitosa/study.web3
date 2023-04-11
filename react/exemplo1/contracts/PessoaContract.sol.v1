@@ -1,0 +1,100 @@
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.4.22 <0.9.0;
+
+contract PessoaContract {
+
+    struct Pessoa {
+        string nome;
+        bool status;
+        uint8 tipo;
+        uint dataCadastro;
+        uint dataModificacao;
+        uint numeroVersao;
+        address carteira;
+    }
+
+    mapping(address => Pessoa) private pessoas;
+    address public owner;
+    
+    event PessoaCadastrada(address carteira, string nome);
+    event PessoaAtualizada(address carteira, string nome);
+    event PessoaInativada(address carteira, string nome);
+
+    constructor() {
+        owner = msg.sender; // adicionado o construtor para setar o owner
+    }
+
+    function cadastrar(
+        string memory _nome,
+        uint8 _tipo
+    ) public {
+        require(
+            pessoas[msg.sender].carteira == address(0),
+            "Endereco de carteira ja registrado."
+        );
+        
+        require(_tipo == 1 || _tipo == 2 , "Tipo de pessoa incorreto.");
+
+        Pessoa memory pessoa = Pessoa(
+            _nome,
+            true,
+            _tipo,
+            block.timestamp,
+            block.timestamp,
+            1,
+            msg.sender
+        );
+
+        pessoas[msg.sender] = pessoa;
+
+        emit PessoaCadastrada(msg.sender, _nome);
+    }
+
+    function consultar(address _carteira)
+        public
+        view
+        onlyOwner
+        returns (
+            string memory,
+            bool,
+            uint8,
+            uint,
+            uint,
+            uint
+        )
+    {
+        require(pessoas[_carteira].carteira != address(0), "Registro nao encontrado.");
+
+        Pessoa memory pessoa = pessoas[_carteira];
+        
+        return (pessoa.nome, pessoa.status, pessoa.tipo, pessoa.dataCadastro, pessoa.dataModificacao, pessoa.numeroVersao);
+    }
+
+    function inativar(address _carteira) public onlyOwner {
+        require(pessoas[_carteira].carteira != address(0), "Registro nao encontrado.");
+        require(pessoas[_carteira].status == true, "Pessoa ja esta inativa.");
+        
+        pessoas[_carteira].status = false;
+        pessoas[_carteira].numeroVersao++; // incrementa a versão após a inativação
+        pessoas[_carteira].dataModificacao = block.timestamp;
+        
+        emit PessoaInativada(_carteira, pessoas[_carteira].nome);
+    }
+
+    function ativar(address _carteira) public onlyOwner {
+        require(pessoas[_carteira].carteira != address(0), "Registro nao encontrado.");
+        require(pessoas[_carteira].status == false, "Pessoa ja esta ativa.");
+        
+        pessoas[_carteira].status = true;
+        pessoas[_carteira].numeroVersao++; // incrementa a versão após a inativação
+        pessoas[_carteira].dataModificacao = block.timestamp;
+        
+        emit PessoaAtualizada(_carteira, pessoas[_carteira].nome);
+    }
+    
+    modifier onlyOwner() { // adicionado o modificador onlyOwner
+        require(msg.sender == owner, "Apenas o owner pode executar esta funcao.");
+        _;
+    }
+}

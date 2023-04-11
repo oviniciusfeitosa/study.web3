@@ -1,0 +1,191 @@
+// // Código gerado pelo Bing
+// import React, { useState, useEffect } from "react";
+// import Web3 from "web3";
+// import { Contract } from "web3-eth-contract";
+// import { AbiItem } from "web3-utils";
+
+// import PessoaContract from "./PessoaContractABI.json";
+
+// const contratoEndereco = "0xeec918d74c746167564401103096D45BbD494B74"; // defina o endereço do seu contrato aqui
+
+import React, { useState, useEffect } from "react";
+import Web3 from "web3";
+import { AbiItem } from "web3-utils";
+import { Button, Input, Form, Table } from "antd";
+
+// Assume that the ABI of the contract is imported from another file
+import abi from "./PessoaContractABI.json";
+
+// Define the address of the contract
+const contractAddress = "0xdE5491f774F0Cb009ABcEA7326342E105dbb1B2E"; // change this to the actual address
+
+// Define the columns of the table
+
+// Define the React component
+const App = () => {
+  // Define the state variables
+  const [web3, setWeb3] = useState<Web3 | null>(null); // web3 instance
+  const [account, setAccount] = useState<string>(""); // user account
+  const [contract, setContract] = useState<any>(null); // contract instance
+  const [loading, setLoading] = useState<boolean>(false); // loading indicator
+  const [pessoas, setPessoas] = useState<any[]>([]); // array of pessoas
+
+  // Define the useEffect hook that runs once when the component mounts
+  useEffect(() => {
+    // Define an async function that initializes web3 and contract
+    const initWeb3 = async () => {
+      // Check if Metamask is installed
+      if ((window as any).ethereum) {
+        // Create a new web3 instance using Metamask provider
+        const web3 = new Web3((window as any).ethereum);
+        // Request access to user accounts
+        await (window as any).ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        // Get the first account
+        const account = (await web3.eth.getAccounts())[0];
+        // Create a new contract instance using web3, abi and address
+        const contract = new web3.eth.Contract(
+          abi as AbiItem[],
+          contractAddress
+        );
+        // Set the state variables
+        setWeb3(web3);
+        setAccount(account);
+        setContract(contract);
+      } else {
+        // Alert the user to install Metamask
+        alert("Please install Metamask to use this app");
+      }
+    };
+
+    // Call the initWeb3 function
+    initWeb3();
+  }, []);
+
+  // Define a function that handles the form submission for cadastrar
+  const handleCadastrar = async (values: any) => {
+    // Get the values from the form
+    const { nome, tipo } = values;
+    // Set the loading indicator to true
+    setLoading(true);
+    try {
+      // Call the cadastrar function from the contract with the values and account
+      await contract.methods.cadastrar(nome, tipo).send({ from: account });
+      // Alert the user that the operation was successful
+      alert("Pessoa cadastrada com sucesso");
+      // Clear the form fields
+      form.resetFields();
+    } catch (error) {
+      // Alert the user that there was an error
+      alert((error as any).message);
+    }
+    // Set the loading indicator to false
+    setLoading(false);
+  };
+
+  // Define a function that handles the form submission for consultar
+  const handleConsultar = async (values: any) => {
+    // Get the value from the form
+    // Set the loading indicator to true
+    setLoading(true);
+    try {
+      console.log("account", account);
+
+      // Call the consultar function from the contract with the value and account
+      // alert( await contract.methods
+      //   .owner()
+      //   .call({ from: account.toLocaleLowerCase() }));
+      const pessoa = await contract.methods
+        .consultar()
+        .call({ from: account });
+      // Set the pessoas array to contain only the returned pessoa
+      console.log(pessoa);
+      
+      setPessoas([pessoa]);
+    } catch (error) {
+      // Alert the user that there was an error
+      alert((error as any).message);
+      console.log((error as any).message);
+    }
+    // Set the loading indicator to false
+    setLoading(false);
+  };
+
+  const handleInativar = async (values: any) => {
+    setLoading(true);
+    try {
+      await contract.methods
+        .inativar()
+        .send({ from: account });
+      alert("Pessoa inativada com sucesso");
+      form.resetFields();
+    } catch (error) {
+      alert((error as any).message);
+    }
+    setLoading(false);
+  };
+
+  const handleAtivar = async (values: any) => {
+    setLoading(true);
+    try {
+      await contract.methods
+        .ativar()
+        .send({ from: account });
+      alert("Pessoa inativada com sucesso");
+      form.resetFields();
+    } catch (error) {
+      alert((error as any).message);
+    }
+    setLoading(false);
+  };
+
+  const [form] = Form.useForm();
+
+  return (
+    <div className="App">
+      <h1>Pessoa Smart Contract</h1>
+      <h2>Account: {account}</h2>
+      <Form form={form} onFinish={handleCadastrar}>
+        <h3>Cadastrar Pessoa</h3>
+        <Form.Item name="nome" label="Nome" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="tipo" label="Tipo" rules={[{ required: true }]}>
+          <Input type="number" />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={loading}>
+            Cadastrar
+          </Button>
+        </Form.Item>
+      </Form>
+      <Form onFinish={handleConsultar}>
+        <h3>Consultar Pessoa</h3>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={loading}>
+            Consultar
+          </Button>
+        </Form.Item>
+      </Form>
+      <Form onFinish={handleInativar}>
+        <h3>Inativar</h3>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={loading}>
+            Inativar
+          </Button>
+        </Form.Item>
+      </Form>
+      <Form onFinish={handleAtivar}>
+        <h3>Ativar</h3>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={loading}>
+            Ativar
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
+
+export default App;

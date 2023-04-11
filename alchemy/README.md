@@ -1,6 +1,6 @@
 # Quick info
 
-Good to:
+Ethereum Standards:
 
 - ERC721 - NFT smart contract
 - ERC20 - Crypto Currency

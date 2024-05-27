@@ -2,9 +2,12 @@
 
 ## Study List
 
-- Networkds
+- Networks
   - Polygon
     - [Starter kit](https://github.com/Polygon-Academy/starter-kits)
+  - Private
+    - [Hyperledger Besu](https://besu.hyperledger.org/private-networks)
+      - [Tessera private transaction manager](https://docs.tessera.consensys.io/overview)
 - Web3 + Next.JS
   - Tutorials
     - Videos
@@ -14,6 +17,7 @@
     - Tutorials
       - Videos
         - [ ] [How to Use the Pinata + NEXT.js Template](https://www.youtube.com/watch?v=TaJzw_2hEJI)
+
 - Tools
   - Truffle
   - Hardhat
